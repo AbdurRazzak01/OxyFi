@@ -64,6 +64,11 @@ export const AppBar: React.FC = () => {
             href="/basics"
             navigationStarts={() => setIsNavOpen(false)}
           />
+          <NavElement
+            label="CO₂ Goal Builder"
+            href="/goal-builder"
+            navigationStarts={() => setIsNavOpen(false)}
+          />
           <WalletMultiButtonDynamic className="btn-ghost btn-sm rounded-btn text-lg mr-6 " />
         </div>
           <label

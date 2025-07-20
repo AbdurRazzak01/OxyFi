@@ -7,6 +7,7 @@ import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 
 // Components
 import { RequestAirdrop } from '../../components/RequestAirdrop';
+import { GoalBuilder } from '../../components/GoalBuilder';
 import pkg from '../../../package.json';
 
 // Store
@@ -62,6 +63,18 @@ export const HomeView: FC = ({ }) => {
           </div>
           }
           </h4>
+        </div>
+        
+        {/* Goal Builder Section */}
+        <div className="mt-12 w-full">
+          <div className="text-center mb-6">
+            <Link href="/goal-builder" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white font-semibold rounded-lg hover:from-green-700 hover:to-blue-700 transition-all">
+              <span>🌱</span>
+              <span>Build Your CO₂ Offset Goal</span>
+              <span>→</span>
+            </Link>
+          </div>
+          <GoalBuilder />
         </div>
       </div>
     </div>
