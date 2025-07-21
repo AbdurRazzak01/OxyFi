@@ -7,6 +7,8 @@ import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 
 // Components
 import { RequestAirdrop } from '../../components/RequestAirdrop';
+import { InvestModal } from '../../components/InvestModal';
+=======
 import ForestVisualizer from '../../components/ForestVisualizer';
 import pkg from '../../../package.json';
 
@@ -16,6 +18,7 @@ import useUserSOLBalanceStore from '../../stores/useUserSOLBalanceStore';
 export const HomeView: FC = ({ }) => {
   const wallet = useWallet();
   const { connection } = useConnection();
+  const [isInvestModalOpen, setIsInvestModalOpen] = useState(false);
 
   const balance = useUserSOLBalanceStore((s) => s.balance)
   const { getUserSOLBalance } = useUserSOLBalanceStore()
@@ -63,7 +66,28 @@ export const HomeView: FC = ({ }) => {
           </div>
           }
           </h4>
+          
+          {/* Investment Demo */}
+          <div className="flex flex-col items-center mt-6">
+            <button
+              onClick={() => setIsInvestModalOpen(true)}
+              className="bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105"
+            >
+              🌱 Invest in Carbon Impact Projects
+            </button>
+            <p className="text-slate-400 text-sm mt-2 text-center max-w-sm">
+              Invest SOL or USDC and receive OxyFi Carbon Impact Tokens representing your environmental contribution
+            </p>
+          </div>
         </div>
+        
+        {/* Investment Modal */}
+        <InvestModal 
+          isOpen={isInvestModalOpen}
+          onClose={() => setIsInvestModalOpen(false)}
+          projectName="OxyFi Carbon Offset Initiative"
+        />
+=======
         {/* Forest Visualizer */}
         <div className="w-full max-w-4xl mx-auto mt-8">
           <ForestVisualizer />
