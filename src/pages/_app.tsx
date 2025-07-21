@@ -2,7 +2,7 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { FC } from 'react';
 import { ContextProvider } from '../contexts/ContextProvider';
-import { AppBar } from '../components/AppBar';
+import { Navbar } from '../components/Navbar';
 import { ContentContainer } from '../components/ContentContainer';
 import { Footer } from '../components/Footer';
 import Notifications from '../components/Notification'
@@ -13,13 +13,13 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
     return (
         <>
           <Head>
-            <title>Solana Scaffold Lite</title>
+            <title>OxyFi - Carbon Credit Platform</title>
           </Head>
 
           <ContextProvider>
             <div className="flex flex-col h-screen">
               <Notifications />
-              <AppBar/>
+              <Navbar/>
               <ContentContainer>
                 <Component {...pageProps} />
                 <Footer/>
