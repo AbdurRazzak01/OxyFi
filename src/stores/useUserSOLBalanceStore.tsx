@@ -3,7 +3,7 @@ import { Connection, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
 
 interface UserSOLBalanceStore extends State {
   balance: number;
-  getUserSOLBalance: (publicKey: PublicKey, connection: Connection) => void
+  getUserSOLBalance: (publicKey: PublicKey, connection: Connection) => Promise<void>
 }
 
 const useUserSOLBalanceStore = create<UserSOLBalanceStore>((set, _get) => ({
