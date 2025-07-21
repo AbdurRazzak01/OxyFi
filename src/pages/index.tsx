@@ -91,7 +91,7 @@ const Home: React.FC = () => {
                 Invest in Our Planet&apos;s
                 <br />
                 <span className="bg-gradient-to-r from-green-600 via-emerald-500 to-blue-600 bg-clip-text text-transparent">
-                  Future with AI
+                  Social Future with AI
                 </span>
               </h2>
               
