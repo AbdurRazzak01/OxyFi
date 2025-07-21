@@ -1,380 +1,303 @@
 
-# 🌱 GreenChain - On-Chain Reforestation Social Platform
+# 🌱 GreenChain - AI-Powered On-Chain Reforestation Platform
 
-A fully on-chain social platform on the Internet Computer for real-time tracking and investment in reforestation projects. Powered by fine-tuned AI models, predicting forest health and CO₂ sequestration to generate transparent, traceable carbon impact tokens. Anyone—from individuals to institutions—can fund verified projects (from £0.01 to £1M), earn tokens, and build long-term climate partnerships.
+A fully on-chain social platform on the Internet Computer for real-time tracking and investment in reforestation projects. Powered by fine-tuned AI models, predicting forest health and CO₂ sequestration to generate transparent, traceable carbon impact tokens.
 
-## 🚀 Platform Overview
+![GreenChain Platform](https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&h=400&fit=crop&crop=center)
 
-GreenChain bridges AI, Real World Assets (RWA), and DeFi natively on the Internet Computer Protocol (ICP), creating a comprehensive ecosystem for reforestation investment and social impact tracking. AI agents automate validation, matching, and reporting—making the system scalable, transparent, and ROI-driven.
+## 🎯 Platform Overview
 
-### 🎯 Key Features
+GreenChain bridges AI, RWA (Real World Assets), and blockchain technology to create a transparent, social, and scalable reforestation investment platform. From £0.01 to £1M+ investments, our platform democratizes climate action through:
 
-#### 🤖 AI-Powered Forest Intelligence
-- **Real-time Forest Health Analysis**: Fine-tuned AI models analyze satellite, drone, and ground sensor data
-- **CO₂ Sequestration Prediction**: AI calculates accurate carbon offset potential with 95%+ accuracy
-- **Automated Verification**: Smart agents validate project progress and impact continuously
-- **Risk Assessment**: Early detection of deforestation, disease, and environmental threats
-- **Biodiversity Tracking**: Monitor ecosystem health and species diversity with ML algorithms
+- **AI-Verified Forest Monitoring**: Real-time satellite data and ML models
+- **Social Investment Platform**: Community-driven reforestation projects
+- **Transparent Carbon Credits**: Blockchain-verified CO₂ sequestration tracking
+- **Multi-Chain Integration**: Solana for speed, ICP for storage and social features
 
-#### 🌍 Social Impact Platform
-- **User Profiles & Social Feed**: Share impact achievements and project updates with the community
-- **Community Challenges**: Participate in global reforestation goals and competitions
-- **Achievement System**: Unlock badges and rewards for environmental contributions
-- **Follow & Engage**: Connect with like-minded climate advocates and institutions
-- **Real-time Notifications**: Stay updated on projects and community activity
+## ✨ Key Features
 
-#### 💰 Flexible Investment Range
-- **Micro to Macro Investments**: From £0.01 to £1M+ with low minimum thresholds
-- **Internet Computer Native**: Fully on-chain transactions and smart contracts on ICP
-- **Automated Goal Setting**: Set monthly climate contribution goals with AI assistance
-- **Portfolio Management**: Track ROI and environmental impact across projects
-- **Staking Rewards**: Earn additional tokens by holding impact credits
+### 🎨 Brand Identity
+- **GreenChain Logo**: Beautiful gradient logo with BeakerIcon (representing AI/science)
+- **Tagline**: "AI-Powered Reforestation Platform"
+- **Professional Design**: Modern, clean aesthetic matching the platform's mission
 
-#### 🏆 Carbon Credit Marketplace
-- **Verified Carbon Credits**: AI-verified, blockchain-tracked carbon offset tokens
-- **Impact Tokens**: Project-specific tokens representing CO₂ sequestration
-- **Trading Platform**: Buy, sell, and retire carbon credits transparently
-- **Certification System**: Multiple verification standards and compliance levels
-- **Real-time Pricing**: Dynamic pricing based on project performance and demand
+### 🧭 Navigation Elements
+- **Projects**: Ecuador reforestation projects
+- **Map**: Interactive project map view
+- **Social**: Community social feed
+- **Leaderboard**: Climate impact rankings
+- **Challenges**: Community goals and rewards
 
-#### 📊 Advanced Analytics & Mapping
-- **Ecuador Projects Map**: Interactive Leaflet map showing real-time project locations
-- **AI Health Scores**: Visual indicators of forest health with color-coded markers
-- **Impact Dashboard**: Comprehensive view of personal and project impact
-- **Forest Visualization**: Interactive project details with satellite imagery
-- **Timelapse Monitoring**: Satellite imagery showing project progress over time
-- **Prediction Models**: AI forecasts for project outcomes and market trends
+### 🔍 Search Functionality
+- **Global Search**: "Search projects, users, or content..."
+- **Responsive Design**: Hidden on mobile, accessible via menu
 
-## 🗺️ Featured: Ecuador Reforestation Projects
+### 🎯 Action Buttons
+- **AI Agent**: Purple sparkles icon with pulsing indicator
+- **Dark/Light Mode**: Theme toggle with smooth transitions
+- **Notifications**: Bell icon with red badge counter
+- **Messages**: Chat icon with blue badge counter
 
-### Real-time AI-Monitored Projects
-1. **Amazon Basin Restoration** (Orellana Province)
-   - 15,000 hectares of degraded rainforest restoration
-   - AI Health Score: 94/100
-   - 1,250 kg CO₂ offset potential per year
-   - Indigenous community partnerships
+### 👤 User Profile Integration
+- **Avatar with Level Badge**: Shows user level in purple circle
+- **Impact Stats**: Carbon offset display in dropdown
+- **Verification Badge**: Blue checkmark for verified users
+- **Dropdown Menu**: Profile, investments, settings, logout
 
-2. **Cloud Forest Conservation** (Pichincha Province)
-   - Andes mountain cloud forest ecosystem protection
-   - AI Health Score: 91/100
-   - 720 kg CO₂ offset potential per year
-   - Real-time satellite monitoring
+### 📱 Mobile Responsive
+- **Hamburger Menu**: Clean mobile navigation
+- **Touch-Friendly**: Optimized for mobile interactions
+- **Consistent UX**: Same features across all devices
 
-3. **Coastal Mangrove Restoration** (Esmeraldas Province)
-   - Sea level rise protection through mangrove restoration
-   - AI Health Score: 89/100
-   - 890 kg CO₂ offset potential per year
-   - IoT sensor networks
+## 🚀 Technology Stack
 
-4. **Dry Forest Regeneration** (Loja Province)
-   - Southern Ecuador tropical dry forest regeneration
-   - AI Health Score: 87/100
-   - 485 kg CO₂ offset potential per year
-   - Community-led initiatives
+### Frontend
+- **Next.js 15**: React framework with TypeScript
+- **Tailwind CSS**: Utility-first styling
+- **Heroicons**: Beautiful icon library
+- **Framer Motion**: Smooth animations
+- **Zustand**: State management
+- **React Hot Toast**: Notifications
 
-## 🏗️ Technical Architecture
+### Blockchain Integration
+- **Solana**: High-speed transactions and wallet integration
+- **Anchor Framework**: Solana smart contract development
+- **SPL Tokens**: Carbon credit tokenization
+- **Wallet Adapters**: Phantom, Solflare, and more
 
-### Internet Computer Integration
-```typescript
-// Native ICP Canisters
-├── greenchain_backend/     # Core platform logic (Motoko)
-├── carbon_credits/         # Token management (Motoko)
-├── ai_verification/        # AI analysis system (Motoko)
-├── social_features/        # Community features (Motoko)
-├── map_services/          # Geographic data (Motoko)
-└── notification_system/   # Real-time updates (Motoko)
-```
+### Smart Contract Features
+- **Platform Management**: Fee collection and governance
+- **Project Creation**: Decentralized project listing
+- **Investment Tracking**: Transparent funding records
+- **Carbon Credit Minting**: Automated token issuance
+- **User Profiles**: On-chain social profiles
+- **AI Integration**: Prediction score storage
 
-### Frontend Technology Stack
-```typescript
-// React/Next.js Components
-├── components/
-│   ├── ProjectMap.tsx          # Interactive Leaflet map
-│   ├── AiAgentPopup.tsx       # Enhanced AI assistant
-│   ├── ProjectCard.tsx        # Project display cards
-│   ├── SocialFeed.tsx         # Community interactions
-│   └── InvestModal.tsx        # Investment interface
-├── pages/
-│   ├── index.tsx              # Main platform page
-│   ├── projects/[id].tsx      # Individual project pages
-│   ├── profile/[user].tsx     # User profiles
-│   └── map.tsx                # Dedicated map view
-└── utils/
-    ├── ml.ts                  # AI analysis functions
-    ├── icp-integration.ts     # ICP canister calls
-    └── mapping.ts             # Geographic utilities
-```
+### Future ICP Integration
+- **Canister Storage**: Large-scale data storage
+- **Social Features**: Community interactions
+- **Identity Management**: Internet Identity integration
 
-### AI & Machine Learning Pipeline
-
-#### Forest Health Analysis
-```typescript
-interface AIAnalysis {
-  forestHealthScore: number;     // 0-100 health rating
-  co2SequestrationRate: number; // Annual CO₂ capture (kg)
-  treeCount: number;             // Estimated tree population
-  vegetationDensity: number;     // Coverage percentage
-  biodiversityIndex: number;     // Species diversity score
-  deforestationRisk: number;     // Risk assessment (0-1)
-  predictions: {
-    co2OffsetNext12Months: number;
-    healthTrend: 'improving' | 'stable' | 'declining';
-    riskFactors: string[];
-    recommendedActions: string[];
-  };
-}
-```
-
-#### Data Sources Integration
-- **Satellite Imagery**: High-resolution forest monitoring from multiple providers
-- **Drone Surveillance**: Detailed canopy analysis and ground truth validation
-- **IoT Sensors**: Real-time environmental data (temperature, humidity, soil conditions)
-- **Community Reports**: Ground-level verification and manual validation
-
-## 🚀 Getting Started
+## 🛠️ Installation & Setup
 
 ### Prerequisites
-- Node.js 16+
-- DFX SDK (for ICP development)
+- Node.js 16+ and npm/yarn
+- Solana CLI tools
+- Anchor Framework
 - Git
 
-### Installation
-
+### 1. Clone Repository
 ```bash
-# Clone the repository
 git clone https://github.com/your-org/greenchain-platform.git
 cd greenchain-platform
+```
 
-# Install dependencies
+### 2. Install Dependencies
+```bash
+# Install frontend dependencies
 npm install
 
-# Set up environment variables
-cp .env.example .env
-# Edit .env with your configuration
+# Install Solana program dependencies
+cd solana-program
+cargo build-bpf
+cd ..
+```
 
-# Start local development
+### 3. Environment Setup
+```bash
+# Copy environment variables
+cp .env.example .env.local
+
+# Update with your configuration
+# NEXT_PUBLIC_PLATFORM_AUTHORITY=your_solflare_wallet_address
+```
+
+### 4. Run Development Server
+```bash
 npm run dev
-
-# Deploy to ICP (local)
-dfx start --background
-dfx deploy
 ```
 
-### Environment Configuration
+Visit `http://localhost:3000` to see the platform.
 
-```env
-# ICP Configuration
-DFX_NETWORK=local
-CANISTER_ID_GREENCHAIN_BACKEND=your-canister-id
+## 🏗️ Smart Contract Deployment
 
-# AI Services
-ML_BACKEND_URL=https://api.forestml.example.com
-SATELLITE_API_KEY=your-satellite-api-key
-OPENAI_API_KEY=your-openai-key
+### 1. Setup Solana Environment
+```bash
+# Set to devnet for testing
+solana config set --url devnet
 
-# Mapping Services
-MAPBOX_API_KEY=your-mapbox-key
-LEAFLET_TILE_URL=your-tile-server
+# Create/import your wallet
+solana-keygen new --outfile ~/.config/solana/id.json
 
-# External Services
-PINATA_API_KEY=your-pinata-key
-PINATA_SECRET_KEY=your-pinata-secret
+# Get some devnet SOL
+solana airdrop 2
 ```
 
-## 📱 Platform Usage
+### 2. Build and Deploy
+```bash
+cd solana-program
 
-### For Individual Investors
+# Build the program
+anchor build
 
-1. **Connect Wallet**: Link your Internet Identity or ICP wallet
-2. **Browse Ecuador Projects**: Explore verified reforestation initiatives on the interactive map
-3. **AI-Assisted Investment**: Get personalized project recommendations based on your goals
-4. **Micro Investments**: Start with as little as £0.01 and scale up
-5. **Track Impact**: Monitor your portfolio's environmental impact in real-time
-6. **Social Engagement**: Share achievements and connect with climate advocates
-7. **Earn Rewards**: Receive carbon credits and staking rewards
+# Deploy to devnet
+anchor deploy --provider.cluster devnet
 
-### For Project Creators
+# Run deployment script
+cd scripts
+ts-node deploy.ts
+```
 
-1. **Submit Project**: Provide detailed project information and geographic coordinates
-2. **AI Verification**: Automated analysis of project viability and health scoring
-3. **Funding Campaign**: Set goals and minimum investment thresholds
-4. **Real-time Monitoring**: Continuous satellite and IoT sensor tracking
-5. **Progress Updates**: Automated reporting with AI-verified milestones
-6. **Token Distribution**: Automatic carbon credit generation based on performance
-7. **Community Building**: Engage with supporters and investors through social features
+### 3. Update Frontend Configuration
+After deployment, update `.env.local` with the deployed contract addresses:
+```bash
+NEXT_PUBLIC_PROGRAM_ID=your_deployed_program_id
+NEXT_PUBLIC_PLATFORM_STATE=your_platform_state_pda
+NEXT_PUBLIC_CARBON_TOKEN_MINT=your_carbon_token_mint
+```
 
-### For Institutions
+## 💰 Solana Integration
 
-1. **Portfolio Management**: Large-scale investment and tracking tools
-2. **ESG Reporting**: Comprehensive sustainability impact reports
-3. **Custom Solutions**: Tailored investment strategies and goals
-4. **API Integration**: Connect with existing sustainability platforms
-5. **Bulk Operations**: Efficient large-volume transactions
-6. **Compliance Tools**: Meet regulatory and certification requirements
+### Wallet Configuration
+The platform supports multiple Solana wallets:
+- **Phantom**: Most popular Solana wallet
+- **Solflare**: Your configured wallet address
+- **Torus**: Social login wallet
+- **Ledger**: Hardware wallet support
 
-## 🌟 Key Components
+### Your Wallet Address
+Configure your Solflare wallet with address:
+```
+63Gv5H8L2rZx1pHnTmJ58fWwiMyRUAN9zY3SFMkcwK3Z
+```
 
-### Interactive Map Features
+### Smart Contract Functions
+- `initialize_platform`: Setup platform parameters
+- `create_project`: List new reforestation projects
+- `invest_in_project`: Make investments with automatic fee handling
+- `update_project_progress`: AI-verified tree planting updates
+- `claim_carbon_credits`: Mint carbon credit tokens
+- `update_user_profile`: Social profile management
 
-- **Ecuador-Focused**: Detailed view of all reforestation projects across Ecuador
-- **AI Health Indicators**: Color-coded markers showing real-time forest health scores
-- **Project Details**: Click markers for comprehensive project information
-- **Satellite Imagery**: High-resolution images with before/after comparisons
-- **Real-time Updates**: Live data feeds from IoT sensors and satellite monitoring
-- **Investment Interface**: Direct investment capability from map interface
+## 🧪 Testing
 
-### Social Platform Features
+### Frontend Testing
+```bash
+# Run component tests
+npm test
 
-- **Impact Feed**: Share your climate action journey with the community
-- **Project Updates**: Real-time progress reports from project creators
-- **Achievement Badges**: Unlock rewards for reaching impact milestones
-- **Community Challenges**: Participate in global reforestation goals
-- **Expert Insights**: Access to climate scientists and forestry experts
-- **Educational Content**: Learn about different ecosystems and conservation methods
+# Run e2e tests
+npm run test:e2e
+```
 
-### AI Agent Capabilities
+### Smart Contract Testing
+```bash
+cd solana-program
 
-- **Project Matching**: Find optimal projects based on your investment goals
-- **Risk Assessment**: Evaluate project viability and potential returns
-- **Portfolio Optimization**: Diversification recommendations across ecosystems
-- **Market Intelligence**: Real-time carbon credit pricing and trends
-- **Impact Forecasting**: Predict long-term environmental outcomes
-- **Automated Reporting**: Generate detailed impact and financial reports
+# Run anchor tests
+anchor test
 
-## 🔒 Security & Verification
+# Run specific test
+anchor test --skip-deploy tests/greenchain.ts
+```
 
-### Multi-Layer Verification
-- **AI Analysis**: Automated forest health assessment with 95%+ accuracy
-- **Satellite Monitoring**: Independent imagery verification from multiple sources
-- **IoT Validation**: Ground-level sensor data for real-time verification
-- **Third-party Audits**: Professional forestry and environmental assessments
-- **Blockchain Immutability**: Transparent, tamper-proof records on ICP
-- **Smart Contract Security**: Audited and tested code with formal verification
+## 🌍 Platform Features
 
-### Compliance Standards
-- **VCS (Verified Carbon Standard)**: International carbon credit verification
-- **Gold Standard**: Premium sustainability certification
-- **FSC (Forest Stewardship Council)**: Responsible forest management
-- **UN SDGs**: Alignment with Sustainable Development Goals
-- **EU Taxonomy**: Compliance with European sustainability regulations
+### Investment Flow
+1. **Browse Projects**: View AI-scored reforestation projects
+2. **Connect Wallet**: Solflare or other supported wallets
+3. **Make Investment**: From £0.01 to £1M+ with automatic fee handling
+4. **Track Progress**: Real-time updates with AI verification
+5. **Claim Credits**: Receive carbon credit tokens upon completion
 
-## 🌐 Network Architecture
+### Social Features
+- **User Profiles**: Showcase your climate impact
+- **Leaderboards**: Compete in environmental challenges
+- **Social Feed**: Share updates and achievements
+- **Messaging**: Direct communication with project creators
+- **Notifications**: Real-time updates on investments
 
-### Primary Infrastructure
-- **Internet Computer (ICP)**: Main platform infrastructure and smart contracts
-- **Solana Integration**: Payment processing and cross-chain compatibility
+### AI Integration
+- **Forest Health Prediction**: ML models analyze satellite data
+- **Risk Assessment**: Project success probability scoring
+- **Progress Verification**: Automated tree counting and health monitoring
+- **Carbon Calculation**: Precise CO₂ sequestration estimates
 
-### Planned Integrations
-- **Ethereum**: Layer 2 solutions for broader accessibility
-- **Polygon**: Low-cost transactions for micro-investments
-- **Arbitrum**: Enhanced scalability for high-volume trading
-- **Cardano**: Additional sustainability-focused blockchain support
+## 🔐 Security Features
 
-## 📈 Tokenomics
+- **Multi-signature Support**: Enhanced security for large investments
+- **Program Derived Addresses**: Secure account management
+- **Access Controls**: Role-based permissions
+- **Audit Trail**: Complete transaction history
+- **Rate Limiting**: Protection against spam and abuse
 
-### Carbon Impact Tokens (CIT)
-- **Total Supply**: Dynamic based on verified CO₂ sequestration
-- **Utility**: Trading, staking, governance voting
-- **Rewards**: 5-8% annual staking yield
-- **Burning**: Retirement mechanism for permanent offset
+## 📊 Analytics & Monitoring
 
-### Platform Token (GREEN)
-- **Governance**: Platform decision making and upgrades
-- **Staking**: Enhanced rewards and platform benefits
-- **Fee Discounts**: Reduced transaction costs
-- **Exclusive Access**: Premium features and early project access
+### Platform Metrics
+- Total CO₂ offset tracked
+- Trees planted and verified
+- Projects funded and completed
+- User engagement statistics
+- Investment volume and trends
 
-## 🤝 Community & Governance
+### Real-time Dashboards
+- Project progress monitoring
+- Carbon credit issuance tracking
+- User activity analytics
+- Financial performance metrics
 
-### Decentralized Governance
-- **Proposal System**: Community-driven platform improvements
-- **Voting Mechanisms**: Token-weighted decision making
-- **Treasury Management**: Community-controlled fund allocation
-- **Protocol Upgrades**: Transparent development process
+## 🔮 Roadmap
 
-### Community Programs
-- **Ambassador Network**: Global community representatives
-- **Educational Content**: Sustainability and blockchain education
-- **Developer Grants**: Funding for ecosystem development
-- **Research Partnerships**: Academic and scientific collaborations
+### Phase 1: MVP Launch ✅
+- [x] Complete navbar with all features
+- [x] Solana smart contract deployment
+- [x] Wallet integration
+- [x] Basic investment functionality
 
-## 📊 Impact Metrics
+### Phase 2: Enhanced Features
+- [ ] ICP canister integration
+- [ ] Advanced AI monitoring
+- [ ] Mobile app development
+- [ ] Multi-language support
 
-### Environmental Impact
-- **CO₂ Sequestered**: 2.5M+ kg carbon dioxide captured
-- **Trees Planted**: 1.25M+ trees across all projects
-- **Biodiversity**: Species diversity and ecosystem health monitoring
-- **Land Restored**: 50,000+ hectares of forest land rehabilitated
+### Phase 3: Scale & Expand
+- [ ] Additional blockchain networks
+- [ ] Institutional investor features
+- [ ] Carbon marketplace
+- [ ] Global project expansion
 
-### Social Impact
-- **Communities Supported**: 25+ local communities engaged
-- **Jobs Created**: 500+ employment opportunities in reforestation
-- **Education Programs**: Environmental awareness initiatives
-- **Technology Transfer**: Knowledge sharing and capacity building
+## 🤝 Contributing
 
-### Economic Impact
-- **Investment Volume**: $45M+ total funding deployed
-- **Carbon Credit Value**: Market value of generated credits
-- **ROI Performance**: 7-9% average returns for investors
-- **Market Growth**: Platform and ecosystem expansion
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
-## 🔮 Development Roadmap
-
-### Phase 1: Foundation ✅
-- Core platform development on ICP
-- Ecuador project integration
-- Basic AI verification system
-- Interactive map implementation
-
-### Phase 2: Enhancement (Current)
-- Advanced AI models deployment
-- Social features launch
-- Mobile application development
-- Cross-chain integration
-
-### Phase 3: Expansion (Q2 2024)
-- Multi-region support (Brazil, Colombia)
-- Institutional tools and APIs
-- Advanced analytics dashboard
-- Global partnerships
-
-### Phase 4: Scale (Q3 2024)
-- Decentralized governance implementation
-- Advanced AI agent capabilities
-- Carbon marketplace launch
-- Regulatory compliance tools
-
-## 📝 Contributing
-
-We welcome contributions from developers, researchers, and sustainability experts. Please see our [Contributing Guide](CONTRIBUTING.md) for details on:
-
-- Code contribution guidelines
-- Development setup and testing
-- Community standards and conduct
-- Bug reporting and feature requests
+### Development Guidelines
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes with tests
+4. Submit a pull request
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🔗 Links
+## 🆘 Support
 
-- **Live Platform**: [https://greenchain.eco](https://greenchain.eco)
-- **Documentation**: [https://docs.greenchain.eco](https://docs.greenchain.eco)
-- **Discord**: [https://discord.gg/greenchain](https://discord.gg/greenchain)
+- **Documentation**: [docs.greenchain.eco](https://docs.greenchain.eco)
+- **Discord**: [Join our community](https://discord.gg/greenchain)
+- **Email**: support@greenchain.eco
 - **Twitter**: [@GreenChainEco](https://twitter.com/GreenChainEco)
-- **Medium**: [https://medium.com/@greenchain](https://medium.com/@greenchain)
 
-## 💬 Support
+## 🙏 Acknowledgments
 
-For support, questions, or partnerships:
-- **Email**: team@greenchain.eco
-- **Discord**: Join our community server
-- **GitHub Issues**: Report bugs and request features
-- **Documentation**: Comprehensive guides and API references
+- Solana Foundation for blockchain infrastructure
+- Internet Computer for decentralized storage
+- OpenAI for AI model development
+- The global reforestation community
 
 ---
 
-**Building a sustainable future through AI-powered reforestation investments. 🌱**
+**Built with 💚 for a sustainable future**
 
-*GreenChain is committed to transparency, environmental impact, and community-driven development. Join us in creating a more sustainable world through blockchain technology, artificial intelligence, and social impact investing.*
+Transform climate action through technology. Every investment counts, every tree matters.
+
+[🌱 Start Your Climate Journey](https://greenchain.eco)

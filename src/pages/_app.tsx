@@ -1,32 +1,41 @@
+import '../styles/globals.css';
 import type { AppProps } from 'next/app';
-import Head from 'next/head';
-import { FC } from 'react';
-import { ContextProvider } from '../contexts/ContextProvider';
-import { AppBar } from '../components/AppBar';
-import Footer from '../components/Footer';
-import Notification from '../components/Notification';
+import { ThemeProvider } from 'next-themes';
+import SolanaWalletProvider from '../components/SolanaWalletProvider';
+import { Toaster } from 'react-hot-toast';
 
-require('@solana/wallet-adapter-react-ui/styles.css');
-require('../styles/globals.css');
+function MyApp({ Component, pageProps }: AppProps) {
+  return (
+    <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+      <SolanaWalletProvider>
+        <Component {...pageProps} />
+        <Toaster 
+          position="top-right"
+          toastOptions={{
+            duration: 4000,
+            style: {
+              background: '#363636',
+              color: '#fff',
+            },
+            success: {
+              duration: 3000,
+              iconTheme: {
+                primary: '#10b981',
+                secondary: '#fff',
+              },
+            },
+            error: {
+              duration: 5000,
+              iconTheme: {
+                primary: '#ef4444',
+                secondary: '#fff',
+              },
+            },
+          }}
+        />
+      </SolanaWalletProvider>
+    </ThemeProvider>
+  );
+}
 
-const App: FC<AppProps> = ({ Component, pageProps }) => {
-    return (
-        <>
-            <Head>
-                <title>OxyFi - Carbon Offsetting Platform</title>
-            </Head>
-            <ContextProvider>
-                <div className="flex flex-col min-h-screen">
-                    <Notification />
-                    <AppBar />
-                    <main className="flex-grow">
-                        <Component {...pageProps} />
-                    </main>
-                    <Footer />
-                </div>
-            </ContextProvider>
-        </>
-    );
-};
-
-export default App;
+export default MyApp;

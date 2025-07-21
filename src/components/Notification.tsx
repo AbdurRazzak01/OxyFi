@@ -8,8 +8,7 @@ import {
 import { XMarkIcon } from '@heroicons/react/24/solid'
 import useNotificationStore from '../stores/useNotificationStore'
 import { useConnection } from '@solana/wallet-adapter-react';
-import { getExplorerUrl } from '../utils/explorer'
-import { useNetworkConfiguration } from 'contexts/NetworkConfigurationProvider';
+import { getExplorerUrl } from '../utils/explorer';
 
 const NotificationList = () => {
   const { notifications, set: setNotificationStore } = useNotificationStore(
@@ -46,7 +45,7 @@ const NotificationList = () => {
 
 const Notification = ({ type, message, description, txid, onHide }) => {
   const { connection } = useConnection();
-  const { networkConfiguration } = useNetworkConfiguration();
+  const networkConfiguration = 'devnet'; // Default to devnet
 
   // TODO: we dont have access to the network or endpoint here.. 
   // getExplorerUrl(connection., txid, 'tx')

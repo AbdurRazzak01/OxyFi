@@ -9,19 +9,39 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "solana:build": "cd solana-program && anchor build",
+    "solana:test": "cd solana-program && anchor test",
+    "solana:deploy:devnet": "cd solana-program && anchor deploy --provider.cluster devnet",
+    "solana:deploy:mainnet": "cd solana-program && anchor deploy --provider.cluster mainnet",
+    "deploy:full": "npm run build && npm run solana:build && npm run solana:deploy:devnet",
+    "setup:devnet": "solana config set --url devnet && solana airdrop 2",
+    "setup:mainnet": "solana config set --url mainnet-beta",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx}\"",
+    "analyze": "ANALYZE=true npm run build"
   },
   "dependencies": {
+    "@coral-xyz/anchor": "^0.29.0",
     "@heroicons/react": "^2.2.0",
     "@noble/ed25519": "^1.7.1",
+    "@project-serum/anchor": "^0.26.0",
+    "@solana/spl-token": "^0.4.8",
     "@solana/wallet-adapter-base": "^0.9.22",
+    "@solana/wallet-adapter-phantom": "^0.9.24",
     "@solana/wallet-adapter-react": "^0.15.32",
     "@solana/wallet-adapter-react-ui": "^0.9.31",
+    "@solana/wallet-adapter-solflare": "^0.6.28",
     "@solana/wallet-adapter-wallets": "^0.19.16",
     "@solana/web3.js": "^1.73.0",
     "@tailwindcss/typography": "^0.5.9",
     "@types/leaflet": "^1.9.12",
     "@types/recharts": "^1.8.29",
+    "clsx": "^2.1.1",
     "daisyui": "^1.24.3",
     "date-fns": "^2.29.3",
     "framer-motion": "^10.16.16",
@@ -30,6 +50,7 @@
     "lucide-react": "^0.525.0",
     "next": "^15.4.2",
     "next-compose-plugins": "^2.2.1",
+    "next-themes": "^0.4.6",
     "next-transpile-modules": "^10.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -37,19 +58,47 @@
     "react-leaflet": "^4.2.1",
     "recharts": "^3.1.0",
     "socket.io-client": "^4.7.4",
-    "zustand": "^3.6.9"
+    "zustand": "^5.0.6"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^15.4.2",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@types/jest": "^29.5.14",
     "@types/node": "^18.11.18",
     "@types/react": "^18.0.27",
     "autoprefixer": "^10.4.2",
     "eslint": "8.7.0",
     "eslint-config-next": "^13.1.5",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "postcss": "^8.5.6",
+    "prettier": "^3.4.2",
     "tailwindcss": "^3.2.4",
     "typescript": "^4.9.4"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=16",
+    "npm": ">=8"
+  },
+  "keywords": [
+    "reforestation",
+    "carbon-credits",
+    "blockchain",
+    "ai",
+    "solana",
+    "icp",
+    "climate-action",
+    "social-platform",
+    "defi",
+    "sustainability"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/greenchain-eco/platform.git"
+  },
+  "homepage": "https://greenchain.eco",
+  "bugs": {
+    "url": "https://github.com/greenchain-eco/platform/issues"
   }
 }

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
+import GreenChainNavbar from '../components/GreenChainNavbar';
+import AiAgentPopup from '../components/AiAgentPopup';
+import { useUserStore } from '../stores/useUserStore';
 import {
   GlobeEuropeAfricaIcon,
   EyeIcon,
@@ -23,7 +26,7 @@ import {
   PlusIcon
 } from '@heroicons/react/24/outline';
 import { useWallet } from '@solana/wallet-adapter-react';
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import toast from 'react-hot-toast';
 
 // Dynamic import for map component to avoid SSR issues
 const ProjectMap = dynamic(() => import('../components/ProjectMap'), {
@@ -35,6 +38,7 @@ const ProjectMap = dynamic(() => import('../components/ProjectMap'), {
 
 const Home: React.FC = () => {
   const { connected, publicKey } = useWallet();
+  const { showAiAgent, addNotification } = useUserStore();
   const [activeTab, setActiveTab] = useState<'projects' | 'social' | 'map'>('projects');
   const [impactStats, setImpactStats] = useState({
     totalCO2Offset: 0,
@@ -202,6 +206,14 @@ const Home: React.FC = () => {
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
 
+      <GreenChainNavbar />
+      
+      {/* AI Agent Popup */}
+      <AiAgentPopup 
+        isOpen={showAiAgent} 
+        onClose={() => useUserStore.getState().toggleAiAgent()}
+      />
+
       <div className="min-h-screen bg-gradient-to-b from-green-50 via-emerald-50 to-blue-50 dark:from-gray-900 dark:via-green-900 dark:to-emerald-900">
         
         {/* Hero Section */}
@@ -248,7 +260,12 @@ const Home: React.FC = () => {
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
                 {!connected ? (
-                  <WalletMultiButton className="btn btn-primary btn-lg shadow-lg hover:shadow-xl transition-all" />
+                  <button 
+                  onClick={() => toast.success('Wallet connection handled by navbar')}
+                  className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-8 py-3 rounded-lg text-lg font-medium transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                >
+                  Get Started
+                </button>
                 ) : (
                   <button className="btn btn-primary btn-lg gap-2 shadow-lg hover:shadow-xl transition-all">
                     <PlusIcon className="w-6 h-6" />
@@ -407,7 +424,7 @@ const Home: React.FC = () => {
                     Ecuador Reforestation Projects
                   </h2>
                   <p className="text-lg text-gray-600 dark:text-gray-400">
-                    AI-verified forest restoration projects across Ecuador's diverse ecosystems
+                    AI-verified forest restoration projects across Ecuador&apos;s diverse ecosystems
                   </p>
                 </div>
 
