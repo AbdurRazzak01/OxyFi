@@ -147,32 +147,30 @@ export const AppBar: React.FC = () => {
             navigationStarts={() => setIsNavOpen(false)}
             className="block w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors duration-200"
           />
-=======
-          <NavElement
-
-            navigationStarts={() => setIsNavOpen(false)}
-          />
           <WalletMultiButtonDynamic className="btn-ghost btn-sm rounded-btn text-lg mr-6 " />
         </div>
-          <label
-              htmlFor="my-drawer"
-              className="btn-gh items-center justify-between md:hidden mr-6"
-              onClick={() => setIsNavOpen(!isNavOpen)}>
-              <div className="HAMBURGER-ICON space-y-2.5 ml-5">
-              <div className={`h-0.5 w-8 bg-purple-600 ${isNavOpen ? 'hidden' : ''}`} />
-              <div className={`h-0.5 w-8 bg-purple-600 ${isNavOpen ? 'hidden' : ''}`} />
-              <div className={`h-0.5 w-8 bg-purple-600 ${isNavOpen ? 'hidden' : ''}`} />
-            </div>
-            <div className={`absolute block h-0.5 w-8 animate-pulse bg-purple-600 ${isNavOpen ? "" : "hidden"}`}
-              style={{ transform: "rotate(45deg)" }}>
-            </div>
-            <div className={`absolute block h-0.5 w-8 animate-pulse bg-purple-600 ${isNavOpen ? "" : "hidden"}`}
-              style={{ transform: "rotate(135deg)" }}>
-            </div>
+        
+        <label
+          htmlFor="my-drawer"
+          className="btn-gh items-center justify-between md:hidden mr-6"
+          onClick={() => setIsNavOpen(!isNavOpen)}
+        >
+          <div className="HAMBURGER-ICON space-y-2.5 ml-5">
+            <div className={`h-0.5 w-8 bg-purple-600 ${isNavOpen ? 'hidden' : ''}`} />
+            <div className={`h-0.5 w-8 bg-purple-600 ${isNavOpen ? 'hidden' : ''}`} />
+            <div className={`h-0.5 w-8 bg-purple-600 ${isNavOpen ? 'hidden' : ''}`} />
+          </div>
+          <div className={`absolute block h-0.5 w-8 animate-pulse bg-purple-600 ${isNavOpen ? "" : "hidden"}`}
+            style={{ transform: "rotate(45deg)" }}>
+          </div>
+          <div className={`absolute block h-0.5 w-8 animate-pulse bg-purple-600 ${isNavOpen ? "" : "hidden"}`}
+            style={{ transform: "rotate(135deg)" }}>
+          </div>
         </label>
-      <div>
-        <span className="absolute block h-0.5 w-12 bg-zinc-600 rotate-90 right-14"></span>
-      </div>
+        
+        <div>
+          <span className="absolute block h-0.5 w-12 bg-zinc-600 rotate-90 right-14"></span>
+        </div>
         <div className="dropdown dropdown-end">
           <div tabIndex={0} className="btn btn-square btn-ghost text-right mr-4">
             <svg className="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -191,8 +189,6 @@ export const AppBar: React.FC = () => {
               </div>
             </li>
           </ul>
-        </div>
-
         </div>
       </div>
     </div>
