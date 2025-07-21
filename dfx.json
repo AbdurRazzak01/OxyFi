@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "canisters": {
+    "greenchain_backend": {
+      "type": "motoko",
+      "main": "src/greenchain_backend/main.mo"
+    },
+    "carbon_credits": {
+      "type": "motoko", 
+      "main": "src/carbon_credits/main.mo"
+    },
+    "ai_verification": {
+      "type": "motoko",
+      "main": "src/ai_verification/main.mo"
+    },
+    "social_features": {
+      "type": "motoko",
+      "main": "src/social_features/main.mo"
+    },
+    "greenchain_frontend": {
+      "type": "assets",
+      "source": [
+        "out/"
+      ]
+    }
+  },
+  "networks": {
+    "local": {
+      "bind": "127.0.0.1:8000",
+      "type": "ephemeral"
+    },
+    "ic": {
+      "providers": ["https://ic0.app"],
+      "type": "persistent"
+    }
+  }
+}
