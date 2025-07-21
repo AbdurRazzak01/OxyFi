@@ -1,7 +1,7 @@
 /* tslint:disable:no-empty */
 import Link from 'next/link';
 import Text from '../Text';
-import { cn } from '../../utils';
+import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
 
@@ -31,7 +31,7 @@ const NavElement = ({
 
     useEffect(() => {
         if (divRef.current) {
-            divRef.current.className = cn(
+            divRef.current.className = clsx(
                 'h-0.5 w-1/4 transition-all duration-300 ease-out',
                 isActive
                     ? '!w-full bg-gradient-to-l from-fuchsia-500 to-pink-500 '
@@ -48,7 +48,7 @@ const NavElement = ({
                 as={as}
                 scroll={scroll}
                 passHref
-                className={cn(
+                className={clsx(
                     className,
                     isActive && 'bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-400',
                     disabled && 'pointer-events-none cursor-not-allowed opacity-50',
@@ -67,7 +67,7 @@ const NavElement = ({
             as={as}
             scroll={scroll}
             passHref
-            className={cn(
+            className={clsx(
                 'group flex h-full flex-col items-center justify-between hover:scale-105 transition-all duration-200',
                 disabled &&
                     'pointer-events-none cursor-not-allowed opacity-50',
@@ -75,7 +75,7 @@ const NavElement = ({
             onClick={() => navigationStarts()}
         >
             <div className="flex flex-row items-center gap-3">
-                <Text variant="nav-heading" className={cn(
+                <Text variant="nav-heading" className={clsx(
                     'transition-colors duration-200',
                     isActive 
                         ? 'text-purple-600 dark:text-purple-400' 
