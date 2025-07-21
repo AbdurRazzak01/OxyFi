@@ -13,6 +13,7 @@ type NavElementProps = {
     chipLabel?: string;
     disabled?: boolean;
     navigationStarts?: () => void;
+    className?: string;
 };
 
 const NavElement = ({
@@ -22,6 +23,7 @@ const NavElement = ({
     scroll,
     disabled,
     navigationStarts = () => {},
+    className,
 }: NavElementProps) => {
     const router = useRouter();
     const isActive = href === router.asPath || (as && as === router.asPath);
@@ -38,6 +40,27 @@ const NavElement = ({
         }
     }, [isActive]);
 
+    if (className) {
+        // Mobile/custom styling
+        return (
+            <Link
+                href={href}
+                as={as}
+                scroll={scroll}
+                passHref
+                className={cn(
+                    className,
+                    isActive && 'bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-400',
+                    disabled && 'pointer-events-none cursor-not-allowed opacity-50',
+                )}
+                onClick={() => navigationStarts()}
+            >
+                {label}
+            </Link>
+        );
+    }
+
+    // Desktop styling
     return (
         <Link
             href={href}
@@ -45,14 +68,21 @@ const NavElement = ({
             scroll={scroll}
             passHref
             className={cn(
-                'group flex h-full flex-col items-center justify-between',
+                'group flex h-full flex-col items-center justify-between hover:scale-105 transition-all duration-200',
                 disabled &&
                     'pointer-events-none cursor-not-allowed opacity-50',
             )}
             onClick={() => navigationStarts()}
         >
             <div className="flex flex-row items-center gap-3">
-                <Text variant="nav-heading"> {label} </Text>
+                <Text variant="nav-heading" className={cn(
+                    'transition-colors duration-200',
+                    isActive 
+                        ? 'text-purple-600 dark:text-purple-400' 
+                        : 'text-gray-700 dark:text-gray-300 group-hover:text-purple-600 dark:group-hover:text-purple-400'
+                )}> 
+                    {label} 
+                </Text>
             </div>
             <div ref={divRef} />
         </Link>
