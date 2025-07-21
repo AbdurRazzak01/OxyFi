@@ -8,6 +8,8 @@ import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 // Components
 import { RequestAirdrop } from '../../components/RequestAirdrop';
 import { BalanceSkeleton } from '../../components/LoadingSkeleton';
+=======
+import ForestVisualizer from '../../components/ForestVisualizer';
 import pkg from '../../../package.json';
 
 // Store
@@ -143,6 +145,10 @@ export const HomeView: FC = ({ }) => {
               
             </div>
           </div>
+        </div>
+        {/* Forest Visualizer */}
+        <div className="w-full max-w-4xl mx-auto mt-8">
+          <ForestVisualizer />
         </div>
       </div>
     </div>
