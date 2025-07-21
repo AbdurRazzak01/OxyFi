@@ -65,8 +65,7 @@ export const AppBar: React.FC = () => {
             navigationStarts={() => setIsNavOpen(false)}
           />
           <NavElement
-            label="Timelapse Demo"
-            href="/timelapse-demo"
+
             navigationStarts={() => setIsNavOpen(false)}
           />
           <WalletMultiButtonDynamic className="btn-ghost btn-sm rounded-btn text-lg mr-6 " />

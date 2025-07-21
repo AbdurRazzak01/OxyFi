@@ -7,9 +7,12 @@ import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 
 // Components
 import { RequestAirdrop } from '../../components/RequestAirdrop';
+import { GoalBuilder } from '../../components/GoalBuilder';
+=======
 import { InvestModal } from '../../components/InvestModal';
 =======
 import ForestVisualizer from '../../components/ForestVisualizer';
+
 import pkg from '../../../package.json';
 
 // Store
@@ -80,6 +83,19 @@ export const HomeView: FC = ({ }) => {
             </p>
           </div>
         </div>
+cursor/implement-co2-offset-goal-builder-97e6
+        
+        {/* Goal Builder Section */}
+        <div className="mt-12 w-full">
+          <div className="text-center mb-6">
+            <Link href="/goal-builder" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white font-semibold rounded-lg hover:from-green-700 hover:to-blue-700 transition-all">
+              <span>🌱</span>
+              <span>Build Your CO₂ Offset Goal</span>
+              <span>→</span>
+            </Link>
+          </div>
+          <GoalBuilder />
+=======
         
         {/* Investment Modal */}
         <InvestModal 
@@ -91,6 +107,7 @@ export const HomeView: FC = ({ }) => {
         {/* Forest Visualizer */}
         <div className="w-full max-w-4xl mx-auto mt-8">
           <ForestVisualizer />
+ main
         </div>
       </div>
     </div>
