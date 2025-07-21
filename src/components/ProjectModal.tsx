@@ -1,5 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { XMarkIcon, PlayIcon, CurrencyDollarIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
+=======
+import Image from 'next/image';
+import { XIcon, PlayIcon, CurrencyDollarIcon, ShoppingCartIcon } from '@heroicons/react/outline';
+
 
 // Project data interface
 export interface Project {
@@ -58,6 +62,35 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
 
     if (isOpen) {
       document.addEventListener('keydown', handleEscape);
+=======
+    const handleTabKey = (event: KeyboardEvent) => {
+      if (event.key !== 'Tab') return;
+
+      const focusableElements = modalRef.current?.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      
+      if (!focusableElements || focusableElements.length === 0) return;
+
+      const firstElement = focusableElements[0] as HTMLElement;
+      const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+      if (event.shiftKey) {
+        if (document.activeElement === firstElement) {
+          lastElement.focus();
+          event.preventDefault();
+        }
+      } else {
+        if (document.activeElement === lastElement) {
+          firstElement.focus();
+          event.preventDefault();
+        }
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+      document.addEventListener('keydown', handleTabKey);
       document.body.style.overflow = 'hidden';
       
       // Focus the first focusable element
@@ -70,6 +103,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
 
     return () => {
       document.removeEventListener('keydown', handleEscape);
+=======
+      document.removeEventListener('keydown', handleTabKey);
       document.body.style.overflow = 'unset';
     };
   }, [isOpen, onClose]);
@@ -114,6 +149,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
     return () => document.removeEventListener('keydown', handleTabKey);
   }, [isOpen]);
 
+=======
   if (!isOpen || !project) return null;
 
   const getHealthScoreColor = (score: number) => {
@@ -162,6 +198,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
             aria-label="Close modal"
           >
             <XMarkIcon className="h-5 w-5" />
+=======
+            <XIcon className="h-5 w-5" />
           </button>
         </div>
 
@@ -174,6 +212,13 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                 src={project.imageUrl}
                 alt={`${project.name} project site`}
                 className="w-full h-full object-cover"
+=======
+            <div className="w-full h-48 md:h-64 rounded-lg overflow-hidden relative">
+              <Image
+                src={project.imageUrl}
+                alt={`${project.name} project site`}
+                fill
+                className="object-cover"
               />
             </div>
           )}
