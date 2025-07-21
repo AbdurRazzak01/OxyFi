@@ -8,6 +8,9 @@ import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 // Components
 import { RequestAirdrop } from '../../components/RequestAirdrop';
 import { GoalBuilder } from '../../components/GoalBuilder';
+=======
+import ForestVisualizer from '../../components/ForestVisualizer';
+
 import pkg from '../../../package.json';
 
 // Store
@@ -64,6 +67,7 @@ export const HomeView: FC = ({ }) => {
           }
           </h4>
         </div>
+cursor/implement-co2-offset-goal-builder-97e6
         
         {/* Goal Builder Section */}
         <div className="mt-12 w-full">
@@ -75,6 +79,11 @@ export const HomeView: FC = ({ }) => {
             </Link>
           </div>
           <GoalBuilder />
+=======
+        {/* Forest Visualizer */}
+        <div className="w-full max-w-4xl mx-auto mt-8">
+          <ForestVisualizer />
+ main
         </div>
       </div>
     </div>
