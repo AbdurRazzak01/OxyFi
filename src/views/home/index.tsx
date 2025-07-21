@@ -8,6 +8,8 @@ import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 // Components
 import { RequestAirdrop } from '../../components/RequestAirdrop';
 import { InvestModal } from '../../components/InvestModal';
+=======
+import ForestVisualizer from '../../components/ForestVisualizer';
 import pkg from '../../../package.json';
 
 // Store
@@ -85,6 +87,11 @@ export const HomeView: FC = ({ }) => {
           onClose={() => setIsInvestModalOpen(false)}
           projectName="OxyFi Carbon Offset Initiative"
         />
+=======
+        {/* Forest Visualizer */}
+        <div className="w-full max-w-4xl mx-auto mt-8">
+          <ForestVisualizer />
+        </div>
       </div>
     </div>
   );
