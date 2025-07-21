@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { XIcon, SparklesIcon, TrendingUpIcon, ExclamationTriangleIcon } from '@heroicons/react/outline';
+import { XMarkIcon, SparklesIcon, ArrowTrendingUpIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 
 interface AiAgentPopupProps {
   isOpen: boolean;
@@ -113,7 +113,7 @@ const AiAgentPopup: React.FC<AiAgentPopupProps> = ({
         const alertMessages = [];
         
         if (currentProgress < 25) {
-          alertMessages.push('⚠️ You\'re behind on your offset goals. Consider increasing monthly contributions.');
+          alertMessages.push('⚠️ You&apos;re behind on your offset goals. Consider increasing monthly contributions.');
         }
         if (userProfile.monthlyBudget < 50) {
           alertMessages.push('💡 Your current budget may not meet your annual offset target. Consider adjusting.');
@@ -172,7 +172,7 @@ const AiAgentPopup: React.FC<AiAgentPopupProps> = ({
   const renderContributionPlans = () => (
     <div className="space-y-4">
       <h3 className="text-lg font-bold text-white flex items-center">
-        <TrendingUpIcon className="h-5 w-5 mr-2 text-success" />
+        <ArrowTrendingUpIcon className="h-5 w-5 mr-2 text-success" />
         Optimized Contribution Plan
       </h3>
       {isAnalyzing ? (
@@ -245,7 +245,7 @@ const AiAgentPopup: React.FC<AiAgentPopupProps> = ({
             ))
           ) : (
             <div className="bg-base-200 rounded-lg p-4 border border-success">
-              <p className="text-success font-semibold">🎉 Great job! You're on track with your offset goals.</p>
+              <p className="text-success font-semibold">🎉 Great job! You&apos;re on track with your offset goals.</p>
               <p className="text-gray-300 text-sm mt-1">Your current impact is aligned with your targets.</p>
             </div>
           )}
@@ -290,7 +290,7 @@ const AiAgentPopup: React.FC<AiAgentPopupProps> = ({
             onClick={onClose}
             className="btn btn-ghost btn-sm text-gray-400 hover:text-white"
           >
-            <XIcon className="h-5 w-5" />
+            <XMarkIcon className="h-5 w-5" />
           </button>
         </div>
 

@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react'
 import {
   CheckCircleIcon,
   InformationCircleIcon,
-  XCircleIcon,
-} from '@heroicons/react/outline'
-import { XIcon } from '@heroicons/react/solid'
+  ExclamationTriangleIcon,
+  XCircleIcon
+} from '@heroicons/react/24/outline'
+import { XMarkIcon } from '@heroicons/react/24/solid'
 import useNotificationStore from '../stores/useNotificationStore'
 import { useConnection } from '@solana/wallet-adapter-react';
 import { getExplorerUrl } from '../utils/explorer'
@@ -111,7 +112,7 @@ const Notification = ({ type, message, description, txid, onHide }) => {
               className={`bg-white dark:bg-gray-700 rounded-md inline-flex text-gray-400 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 transition-all duration-200 hover:scale-110 p-1`}
             >
               <span className={`sr-only`}>Close</span>
-              <XIcon className="h-4 w-4" />
+              <XMarkIcon className="h-4 w-4" />
             </button>
           </div>
         </div>

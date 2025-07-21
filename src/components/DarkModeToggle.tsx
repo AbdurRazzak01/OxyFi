@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import { SunIcon, MoonIcon } from '@heroicons/react/outline';
+import { SunIcon, MoonIcon } from '@heroicons/react/24/outline';
 
 export const DarkModeToggle: FC = () => {
   const [isDark, setIsDark] = useState(false);

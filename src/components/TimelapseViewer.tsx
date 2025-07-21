@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { PlayIcon, PauseIcon, StopIcon } from '@heroicons/react/solid';
+import { PlayIcon, PauseIcon, StopIcon } from '@heroicons/react/24/solid';
 
 interface SatelliteImage {
   id: string;

@@ -2,7 +2,7 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { FC } from 'react';
 import { ContextProvider } from '../contexts/ContextProvider';
-import { AppBar } from '../components';
+import { AppBar } from '../components/AppBar';
 import Footer from '../components/Footer';
 import { Notification } from '../components/Notification';
 

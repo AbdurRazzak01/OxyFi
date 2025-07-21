@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
-import { 
-  PlayIcon, 
-  CurrencyDollarIcon, 
-  ChartBarIcon, 
-  GlobeIcon,
+import {
+  GlobeEuropeAfricaIcon,
+  EyeIcon,
+  ClockIcon,
   ShieldCheckIcon,
-  SparklesIcon 
-} from '@heroicons/react/outline';
+  ArrowTrendingUpIcon,
+  SparklesIcon,
+  ChartBarIcon,
+  CurrencyDollarIcon
+} from '@heroicons/react/24/outline';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 
@@ -65,7 +67,7 @@ const Home: React.FC = () => {
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button className="btn btn-primary btn-lg gap-2">
-                  <GlobeIcon className="w-6 h-6" />
+                  <GlobeEuropeAfricaIcon className="w-6 h-6" />
                   Explore Projects
                 </button>
                 {!connected ? (
@@ -141,7 +143,7 @@ const Home: React.FC = () => {
               <div className="card bg-base-100 shadow-xl">
                 <div className="card-body text-center">
                   <div className="mx-auto w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mb-4">
-                    <GlobeIcon className="w-8 h-8 text-secondary" />
+                    <GlobeEuropeAfricaIcon className="w-8 h-8 text-secondary" />
                   </div>
                   <h3 className="card-title justify-center">Satellite Monitoring</h3>
                   <p className="text-base-content/70">
