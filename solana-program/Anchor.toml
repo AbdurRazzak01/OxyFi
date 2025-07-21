@@ -1,11 +1,8 @@
 [features]
-seeds = false
+resolution = true
 skip-lint = false
 
 [programs.devnet]
-greenchain_reforestation = "GreenChain11111111111111111111111111111111"
-
-[programs.testnet]
 greenchain_reforestation = "GreenChain11111111111111111111111111111111"
 
 [programs.mainnet]

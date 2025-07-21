@@ -5,20 +5,26 @@ import {
   Keypair, 
   PublicKey, 
   SystemProgram,
-  LAMPORTS_PER_SOL 
+  LAMPORTS_PER_SOL,
+  Transaction
 } from "@solana/web3.js";
 import { 
   createMint, 
   getOrCreateAssociatedTokenAccount,
   TOKEN_PROGRAM_ID,
-  ASSOCIATED_TOKEN_PROGRAM_ID
+  ASSOCIATED_TOKEN_PROGRAM_ID,
+  AuthorityType,
+  setAuthority
 } from "@solana/spl-token";
 import { GreenChainReforestation } from "../target/types/greenchain_reforestation";
+import fs from 'fs';
+import path from 'path';
 
 // Configuration
-const NETWORK = "devnet"; // Change to "mainnet-beta" for production
-const PLATFORM_AUTHORITY = "63Gv5H8L2rZx1pHnTmJ58fWwiMyRUAN9zY3SFMkcwK3Z"; // Your Solflare wallet
+const NETWORK = process.env.SOLANA_NETWORK || "devnet";
+const PLATFORM_AUTHORITY = "63Gv5H8L2rZx1pHnTmJ58fWwiMyRUAN9zY3SFMkcwK3Z";
 const INVESTMENT_FEE_BPS = 250; // 2.5% platform fee
+const MIN_AI_CONFIDENCE = 75; // Minimum 75% AI confidence required
 
 async function main() {
   console.log("🌱 Deploying GreenChain Reforestation Platform to Solana", NETWORK);
@@ -27,23 +33,51 @@ async function main() {
   const connection = new Connection(
     NETWORK === "devnet" 
       ? "https://api.devnet.solana.com"
-      : "https://api.mainnet-beta.solana.com",
+      : NETWORK === "mainnet-beta"
+      ? "https://api.mainnet-beta.solana.com"
+      : "http://localhost:8899",
     "confirmed"
   );
 
-  // Load deployer wallet (you'll need to have this keypair file)
-  const deployerKeypair = Keypair.generate(); // Replace with actual keypair loading
+  // Load or generate deployer wallet
+  let deployerKeypair: Keypair;
+  const keypairPath = path.join(process.env.HOME || '', '.config/solana/id.json');
+  
+  try {
+    if (fs.existsSync(keypairPath)) {
+      const keypairData = JSON.parse(fs.readFileSync(keypairPath, 'utf8'));
+      deployerKeypair = Keypair.fromSecretKey(new Uint8Array(keypairData));
+      console.log("✅ Loaded existing wallet from:", keypairPath);
+    } else {
+      deployerKeypair = Keypair.generate();
+      console.log("⚠️  Generated new wallet. Save this keypair securely!");
+      console.log("Public key:", deployerKeypair.publicKey.toString());
+    }
+  } catch (error) {
+    console.log("Generating new keypair due to error:", error.message);
+    deployerKeypair = Keypair.generate();
+  }
+
   console.log("Deployer public key:", deployerKeypair.publicKey.toString());
 
-  // Airdrop SOL for devnet testing
+  // Check and request SOL for devnet
   if (NETWORK === "devnet") {
-    console.log("Requesting airdrop...");
-    const airdropSignature = await connection.requestAirdrop(
-      deployerKeypair.publicKey,
-      2 * LAMPORTS_PER_SOL
-    );
-    await connection.confirmTransaction(airdropSignature);
-    console.log("Airdrop confirmed");
+    const balance = await connection.getBalance(deployerKeypair.publicKey);
+    console.log("Current balance:", balance / LAMPORTS_PER_SOL, "SOL");
+    
+    if (balance < 2 * LAMPORTS_PER_SOL) {
+      console.log("Requesting airdrop...");
+      try {
+        const airdropSignature = await connection.requestAirdrop(
+          deployerKeypair.publicKey,
+          2 * LAMPORTS_PER_SOL
+        );
+        await connection.confirmTransaction(airdropSignature);
+        console.log("✅ Airdrop confirmed");
+      } catch (error) {
+        console.log("⚠️  Airdrop failed:", error.message);
+      }
+    }
   }
 
   // Setup anchor provider
@@ -64,16 +98,20 @@ async function main() {
     const carbonTokenMint = await createMint(
       connection,
       deployerKeypair,
-      deployerKeypair.publicKey, // mint authority (will be transferred to platform)
+      deployerKeypair.publicKey, // temporary mint authority
       null, // freeze authority
-      6, // decimals
+      6, // decimals (1 token = 1 kg CO2)
       undefined,
       undefined,
       TOKEN_PROGRAM_ID
     );
-    console.log("Carbon Token Mint:", carbonTokenMint.toString());
+    console.log("✅ Carbon Token Mint:", carbonTokenMint.toString());
 
-    // Step 2: Initialize Platform
+    // Step 2: Generate AI Oracle keypair
+    const aiOracleKeypair = Keypair.generate();
+    console.log("🤖 AI Oracle Authority:", aiOracleKeypair.publicKey.toString());
+
+    // Step 3: Initialize Platform
     console.log("\n🏗️  Initializing Platform...");
     const [platformStatePDA] = PublicKey.findProgramAddressSync(
       [Buffer.from("platform")],
@@ -86,7 +124,9 @@ async function main() {
       .initializePlatform(
         platformAuthorityPubkey,
         carbonTokenMint,
-        INVESTMENT_FEE_BPS
+        INVESTMENT_FEE_BPS,
+        aiOracleKeypair.publicKey,
+        MIN_AI_CONFIDENCE
       )
       .accounts({
         platformState: platformStatePDA,
@@ -96,10 +136,10 @@ async function main() {
       .signers([deployerKeypair])
       .rpc();
 
-    console.log("Platform initialized. Transaction:", initTx);
-    console.log("Platform State PDA:", platformStatePDA.toString());
+    console.log("✅ Platform initialized. Transaction:", initTx);
+    console.log("📍 Platform State PDA:", platformStatePDA.toString());
 
-    // Step 3: Create Platform Fee Token Account
+    // Step 4: Create Platform Fee Token Account
     console.log("\n💰 Creating Platform Fee Account...");
     const platformFeeAccount = await getOrCreateAssociatedTokenAccount(
       connection,
@@ -107,95 +147,134 @@ async function main() {
       new PublicKey("So11111111111111111111111111111111111111112"), // WSOL mint
       platformAuthorityPubkey
     );
-    console.log("Platform Fee Account:", platformFeeAccount.address.toString());
+    console.log("✅ Platform Fee Account:", platformFeeAccount.address.toString());
 
-    // Step 4: Transfer mint authority to platform (for carbon credits)
+    // Step 5: Transfer mint authority to platform
     console.log("\n🔐 Transferring mint authority to platform...");
-    const transferAuthorityTx = await program.provider.connection.sendTransaction(
-      new anchor.web3.Transaction().add(
-        anchor.utils.token.createSetAuthorityInstruction(
-          carbonTokenMint,
-          deployerKeypair.publicKey,
-          "MintTokens",
-          platformStatePDA,
-          []
+    await setAuthority(
+      connection,
+      deployerKeypair,
+      carbonTokenMint,
+      deployerKeypair.publicKey,
+      AuthorityType.MintTokens,
+      platformStatePDA
+    );
+    console.log("✅ Mint authority transferred to platform");
+
+    // Step 6: Create demo projects with enhanced AI data
+    console.log("\n🌳 Creating Demo Projects...");
+    
+    const demoProjects = [
+      {
+        id: 1,
+        name: "Amazon Rainforest Restoration",
+        description: "Large-scale reforestation project in the Amazon rainforest focusing on native species restoration and biodiversity conservation with AI-powered monitoring.",
+        location: {
+          country: "Brazil",
+          region: "Amazon Basin",
+          latitude: -3.4653,
+          longitude: -62.2159,
+          areaHectares: 10000,
+        },
+        targetTrees: 100000,
+        targetFunding: 1000000,
+        carbonCreditRate: 25,
+        aiPredictionData: {
+          confidenceScore: 92,
+          co2SequestrationRate: 28000,
+          survivalProbability: 88,
+          optimalSpecies: Array.from("Cecropia,Mahogany,Brazil Nut".padEnd(32, '\0')).map(c => c.charCodeAt(0)),
+          climateSuitability: 95,
+          soilQuality: 85,
+          waterAvailability: 90,
+        },
+        verificationRequirements: {
+          satelliteMonitoring: true,
+          groundVerification: true,
+          thirdPartyAudit: true,
+          communityReporting: true,
+          verificationFrequencyDays: 30,
+        },
+      },
+      {
+        id: 2,
+        name: "Ecuador Cloud Forest Conservation",
+        description: "Protecting and expanding cloud forest ecosystems in the Andes with real-time satellite monitoring and community involvement.",
+        location: {
+          country: "Ecuador",
+          region: "Pichincha Province",
+          latitude: -0.1807,
+          longitude: -78.4678,
+          areaHectares: 5000,
+        },
+        targetTrees: 50000,
+        targetFunding: 500000,
+        carbonCreditRate: 30,
+        aiPredictionData: {
+          confidenceScore: 89,
+          co2SequestrationRate: 32000,
+          survivalProbability: 91,
+          optimalSpecies: Array.from("Cloud Forest Mix".padEnd(32, '\0')).map(c => c.charCodeAt(0)),
+          climateSuitability: 88,
+          soilQuality: 92,
+          waterAvailability: 85,
+        },
+        verificationRequirements: {
+          satelliteMonitoring: true,
+          groundVerification: true,
+          thirdPartyAudit: false,
+          communityReporting: true,
+          verificationFrequencyDays: 14,
+        },
+      },
+    ];
+
+    for (const projectData of demoProjects) {
+      const [projectPDA] = PublicKey.findProgramAddressSync(
+        [Buffer.from("project"), new anchor.BN(projectData.id).toArrayLike(Buffer, "le", 8)],
+        program.programId
+      );
+
+      const createProjectTx = await program.methods
+        .createProject(
+          new anchor.BN(projectData.id),
+          projectData.name,
+          projectData.description,
+          projectData.location,
+          new anchor.BN(projectData.targetTrees),
+          new anchor.BN(projectData.targetFunding),
+          new anchor.BN(projectData.carbonCreditRate),
+          projectData.aiPredictionData,
+          projectData.verificationRequirements
         )
-      ),
-      [deployerKeypair]
-    );
-    await connection.confirmTransaction(transferAuthorityTx);
-    console.log("Mint authority transferred. Transaction:", transferAuthorityTx);
+        .accounts({
+          project: projectPDA,
+          platformState: platformStatePDA,
+          creator: deployerKeypair.publicKey,
+          systemProgram: SystemProgram.programId,
+        })
+        .signers([deployerKeypair])
+        .rpc();
 
-    // Step 5: Create a demo project
-    console.log("\n🌳 Creating Demo Project...");
-    const projectId = 1;
-    const [projectPDA] = PublicKey.findProgramAddressSync(
-      [Buffer.from("project"), new anchor.BN(projectId).toArrayLike(Buffer, "le", 8)],
-      program.programId
-    );
-
-    const createProjectTx = await program.methods
-      .createProject(
-        new anchor.BN(projectId),
-        "Amazon Rainforest Restoration",
-        "Large-scale reforestation project in the Amazon rainforest focusing on native species restoration and biodiversity conservation. This project aims to plant 100,000 trees over 5 years with AI-powered monitoring and verification.",
-        "Amazon Basin, Brazil",
-        new anchor.BN(100000), // target trees
-        new anchor.BN(1000000), // target funding in lamports
-        new anchor.BN(25), // 25 kg CO2 per tree
-        85 // 85% AI prediction score
-      )
-      .accounts({
-        project: projectPDA,
-        platformState: platformStatePDA,
-        creator: deployerKeypair.publicKey,
-        systemProgram: SystemProgram.programId,
-      })
-      .signers([deployerKeypair])
-      .rpc();
-
-    console.log("Demo project created. Transaction:", createProjectTx);
-    console.log("Project PDA:", projectPDA.toString());
-
-    // Step 6: Create user profile for platform authority
-    console.log("\n👤 Creating User Profile...");
-    const [userProfilePDA] = PublicKey.findProgramAddressSync(
-      [Buffer.from("profile"), platformAuthorityPubkey.toBuffer()],
-      program.programId
-    );
-
-    const createProfileTx = await program.methods
-      .updateUserProfile(
-        "GreenChainFounder",
-        "Founder of GreenChain - Building the future of reforestation through AI and blockchain technology 🌱",
-        "Global"
-      )
-      .accounts({
-        userProfile: userProfilePDA,
-        user: deployerKeypair.publicKey,
-        systemProgram: SystemProgram.programId,
-      })
-      .signers([deployerKeypair])
-      .rpc();
-
-    console.log("User profile created. Transaction:", createProfileTx);
-    console.log("User Profile PDA:", userProfilePDA.toString());
+      console.log(`✅ Created project "${projectData.name}"`);
+      console.log(`   Transaction: ${createProjectTx}`);
+      console.log(`   Project PDA: ${projectPDA.toString()}`);
+    }
 
     // Step 7: Display deployment summary
-    console.log("\n✅ Deployment Complete!");
-    console.log("=".repeat(60));
-    console.log("📋 DEPLOYMENT SUMMARY");
-    console.log("=".repeat(60));
+    console.log("\n" + "=".repeat(80));
+    console.log("🎉 DEPLOYMENT COMPLETE!");
+    console.log("=".repeat(80));
     console.log(`🌐 Network: ${NETWORK}`);
     console.log(`🏗️  Program ID: ${program.programId.toString()}`);
     console.log(`🏛️  Platform State: ${platformStatePDA.toString()}`);
     console.log(`👑 Platform Authority: ${PLATFORM_AUTHORITY}`);
+    console.log(`🤖 AI Oracle Authority: ${aiOracleKeypair.publicKey.toString()}`);
     console.log(`🪙 Carbon Token Mint: ${carbonTokenMint.toString()}`);
     console.log(`💰 Platform Fee Account: ${platformFeeAccount.address.toString()}`);
-    console.log(`🌳 Demo Project: ${projectPDA.toString()}`);
-    console.log(`👤 User Profile: ${userProfilePDA.toString()}`);
     console.log(`💸 Platform Fee: ${INVESTMENT_FEE_BPS / 100}%`);
-    console.log("=".repeat(60));
+    console.log(`🎯 Min AI Confidence: ${MIN_AI_CONFIDENCE}%`);
+    console.log("=".repeat(80));
 
     // Step 8: Save deployment info to file
     const deploymentInfo = {
@@ -203,88 +282,98 @@ async function main() {
       programId: program.programId.toString(),
       platformState: platformStatePDA.toString(),
       platformAuthority: PLATFORM_AUTHORITY,
+      aiOracleAuthority: aiOracleKeypair.publicKey.toString(),
       carbonTokenMint: carbonTokenMint.toString(),
       platformFeeAccount: platformFeeAccount.address.toString(),
-      demoProject: projectPDA.toString(),
-      userProfile: userProfilePDA.toString(),
       investmentFeeBps: INVESTMENT_FEE_BPS,
+      minAiConfidence: MIN_AI_CONFIDENCE,
+      demoProjects: demoProjects.map((p, i) => ({
+        id: p.id,
+        name: p.name,
+        pda: PublicKey.findProgramAddressSync(
+          [Buffer.from("project"), new anchor.BN(p.id).toArrayLike(Buffer, "le", 8)],
+          program.programId
+        )[0].toString(),
+      })),
       deployedAt: new Date().toISOString(),
+      deployerPublicKey: deployerKeypair.publicKey.toString(),
     };
 
-    console.log("\n💾 Saving deployment info...");
-    const fs = require('fs');
-    fs.writeFileSync(
-      `deployment-${NETWORK}.json`,
-      JSON.stringify(deploymentInfo, null, 2)
-    );
-    console.log(`Deployment info saved to deployment-${NETWORK}.json`);
+    const deploymentFileName = `deployment-${NETWORK}-${Date.now()}.json`;
+    fs.writeFileSync(deploymentFileName, JSON.stringify(deploymentInfo, null, 2));
+    console.log(`💾 Deployment info saved to: ${deploymentFileName}`);
 
-    // Step 9: Instructions for frontend integration
-    console.log("\n🔗 FRONTEND INTEGRATION INSTRUCTIONS");
-    console.log("=".repeat(60));
-    console.log("1. Update your frontend environment variables:");
-    console.log(`   NEXT_PUBLIC_SOLANA_NETWORK=${NETWORK}`);
-    console.log(`   NEXT_PUBLIC_PROGRAM_ID=${program.programId.toString()}`);
-    console.log(`   NEXT_PUBLIC_PLATFORM_STATE=${platformStatePDA.toString()}`);
-    console.log(`   NEXT_PUBLIC_CARBON_TOKEN_MINT=${carbonTokenMint.toString()}`);
+    // Step 9: Save AI Oracle keypair securely
+    const aiOracleFileName = `ai-oracle-${NETWORK}-${Date.now()}.json`;
+    fs.writeFileSync(
+      aiOracleFileName, 
+      JSON.stringify(Array.from(aiOracleKeypair.secretKey)),
+      { mode: 0o600 } // Secure file permissions
+    );
+    console.log(`🔐 AI Oracle keypair saved to: ${aiOracleFileName}`);
+
+    // Step 10: Generate environment variable updates
+    console.log("\n📋 ENVIRONMENT VARIABLE UPDATES");
+    console.log("=".repeat(80));
+    console.log("Add these to your .env.local file:");
     console.log("");
-    console.log("2. Connect your Solflare wallet with address:");
-    console.log(`   ${PLATFORM_AUTHORITY}`);
+    console.log(`NEXT_PUBLIC_PROGRAM_ID=${program.programId.toString()}`);
+    console.log(`NEXT_PUBLIC_PLATFORM_STATE=${platformStatePDA.toString()}`);
+    console.log(`NEXT_PUBLIC_CARBON_TOKEN_MINT=${carbonTokenMint.toString()}`);
+    console.log(`NEXT_PUBLIC_AI_ORACLE_AUTHORITY=${aiOracleKeypair.publicKey.toString()}`);
     console.log("");
-    console.log("3. The platform is ready for testing!");
-    console.log("   - Create projects");
-    console.log("   - Make investments");
-    console.log("   - Track carbon credits");
-    console.log("   - Update project progress");
-    console.log("=".repeat(60));
+
+    // Step 11: Instructions for frontend integration
+    console.log("🔗 FRONTEND INTEGRATION INSTRUCTIONS");
+    console.log("=".repeat(80));
+    console.log("1. Update .env.local with the variables above");
+    console.log("2. Install dependencies: npm install");
+    console.log("3. Start development server: npm run dev");
+    console.log("4. The platform is ready for testing!");
+    console.log("");
+    console.log("🚀 FEATURES AVAILABLE:");
+    console.log("   ✅ Project creation with AI verification");
+    console.log("   ✅ Investment tracking with tier bonuses");
+    console.log("   ✅ Carbon credit minting");
+    console.log("   ✅ Real-time forest monitoring");
+    console.log("   ✅ Emergency pause functionality");
+    console.log("   ✅ Multi-tier investment system");
+    console.log("=".repeat(80));
 
   } catch (error) {
     console.error("❌ Deployment failed:", error);
+    
+    // Save error details for debugging
+    const errorInfo = {
+      error: error.message,
+      stack: error.stack,
+      timestamp: new Date().toISOString(),
+      network: NETWORK,
+      deployerPublicKey: deployerKeypair.publicKey.toString(),
+    };
+    
+    fs.writeFileSync(
+      `deployment-error-${NETWORK}-${Date.now()}.json`,
+      JSON.stringify(errorInfo, null, 2)
+    );
+    
     process.exit(1);
   }
 }
 
-// Helper function to create a test investment (optional)
-async function createTestInvestment(
-  program: Program<GreenChainReforestation>,
-  connection: Connection,
-  investor: Keypair,
-  projectId: number,
-  amount: number
-) {
-  console.log(`\n💰 Creating test investment of ${amount} lamports...`);
+// Helper function to validate environment
+function validateEnvironment() {
+  const requiredVars = ['SOLANA_NETWORK'];
+  const missing = requiredVars.filter(varName => !process.env[varName]);
   
-  const [projectPDA] = PublicKey.findProgramAddressSync(
-    [Buffer.from("project"), new anchor.BN(projectId).toArrayLike(Buffer, "le", 8)],
-    program.programId
-  );
-
-  const [platformStatePDA] = PublicKey.findProgramAddressSync(
-    [Buffer.from("platform")],
-    program.programId
-  );
-
-  const [investorProfilePDA] = PublicKey.findProgramAddressSync(
-    [Buffer.from("profile"), investor.publicKey.toBuffer()],
-    program.programId
-  );
-
-  const [investmentPDA] = PublicKey.findProgramAddressSync(
-    [
-      Buffer.from("investment"),
-      investor.publicKey.toBuffer(),
-      new anchor.BN(projectId).toArrayLike(Buffer, "le", 8)
-    ],
-    program.programId
-  );
-
-  // You would need to create token accounts and fund them here
-  // This is a simplified example
-  
-  console.log("Test investment setup complete");
+  if (missing.length > 0) {
+    console.warn(`⚠️  Missing environment variables: ${missing.join(', ')}`);
+    console.warn("Using default values...");
+  }
 }
 
 if (require.main === module) {
+  validateEnvironment();
   main().catch(console.error);
 }
 
