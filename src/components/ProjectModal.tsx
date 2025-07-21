@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { useForestAnalysis, formatHealthScore, formatCO2Offset, ForestAnalysisResult } from '../utils/ml';
 import Image from 'next/image';
 import { XMarkIcon, PlayIcon, CurrencyDollarIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
@@ -51,7 +51,30 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
   const modalRef = useRef<HTMLDivElement>(null);
   const firstFocusableElementRef = useRef<HTMLButtonElement>(null);
 
-  // Handle escape key press
+  // Real-time forest analysis with ML
+  const { analysis, loading, error } = useForestAnalysis(
+    project?.imageUrl || null,
+    project?.coordinates,
+    15000 // Refresh every 15 seconds
+  );
+
+  // Use real-time analysis when available
+  const currentAnalysis = analysis;
+
+  // Handle click outside modal
+  const handleClickOutside = useCallback((event: MouseEvent) => {
+    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+      onClose();
+    }
+  }, [onClose]);
+
+  // Handle backdrop click
+  const handleBackdropClick = (event: React.MouseEvent) => {
+    if (event.target === event.currentTarget) {
+      onClose();
+    }
+  };
+
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && isOpen) {
@@ -68,7 +91,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
       document.removeEventListener('mousedown', handleClickOutside);
       document.body.style.overflow = 'unset';
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose, handleClickOutside]);
 
   // Handle escape key
   useEffect(() => {
@@ -83,13 +106,6 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
     }
     return () => document.removeEventListener('keydown', handleEscape);
   }, [isOpen, onClose]);
-
-  // Handle click outside modal
-  const handleBackdropClick = (event: React.MouseEvent) => {
-    if (event.target === event.currentTarget) {
-      onClose();
-    }
-  };
 
   // Focus trap for accessibility
   const handleTabKey = (event: KeyboardEvent) => {
@@ -230,7 +246,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                   {/* Main Metrics */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {/* Forest Health */}
-                    <div className={`p-4 rounded-lg border ${getHealthBgColor(currentAnalysis.forestHealthScore)}`}>
+                    <div className={`p-4 rounded-lg border ${getHealthScoreColor(currentAnalysis.forestHealthScore)}`}>
                       <div className="text-center">
                         <div className={`text-3xl font-bold ${getHealthScoreColor(currentAnalysis.forestHealthScore)}`}>
                           {formatHealthScore(currentAnalysis.forestHealthScore).text}
