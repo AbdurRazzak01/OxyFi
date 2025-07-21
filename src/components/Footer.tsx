@@ -1,132 +1,67 @@
-import { FC } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-export const Footer: FC = () => {
-    return (
-        <div className="flex">
-            <footer className="border-t-2 border-[#141414] bg-black hover:text-white w-screen" >
-                <div className="ml-12 py-12 mr-12">
-                    <div className="grid grid-cols-2 md:grid-cols-6 gap-2 md:gap-8 md:space-x-12 relative">
-                        <div className='flex flex-col col-span-2 mx-4 items-center md:items-start'>
-                            <div className='flex flex-row ml-1'>
-                                <Link href="https://solana.com" target="_blank" rel="noopener noreferrer" passHref className="text-secondary hover:text-white">
-                                    <div className='flex flex-row ml-1'>
-                                        <Image
-                                            src="/solanaLogo.png"
-                                            alt="solana icon"
-                                            width={156}
-                                            height={96}
-                                        />
-                                    </div>
-                                </Link>
-                            </div>
-                            <div className="flex md:ml-2">
-                                <a href="https://twitter.com/solana_devs" type="button" className="border-white text-secondary hover:text-white leading-normal hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out w-9 h-9 m-1">
-                                    <svg aria-hidden="true"
-                                        focusable="false"
-                                        data-prefix="fab"
-                                        data-icon="twitter"
-                                        className="w-4 h-full mx-auto"
-                                        role="img"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 512 512"
-                                    >
-                                    <path
-                                        fill="currentColor"
-                                        d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"
-                                    ></path>
-                                    </svg>
-                                </a>
-                                <a href="https://github.com/solana-labs"  type="button" className="border-white text-secondary hover:text-white leading-normal hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out w-9 h-9 m-1">
-                                    <svg aria-hidden="true"
-                                        focusable="false"
-                                        data-prefix="fab"
-                                        data-icon="github"
-                                        className="w-4 h-full mx-auto"
-                                        role="img"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 496 512"
-                                    >
-                                        <path
-                                            fill="currentColor"
-                                            d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"
-                                        ></path>
-                                    </svg>
-                                </a>
-                            </div>
-                            <div className="mb-6 m-1 sm:text-left place-items-start items-start font-normal tracking-tight text-secondary">
-                                        © 2023 Solana Foundation
-                            </div>
-                        </div>
+import React from 'react';
 
-                        <div className="mb-6 items-center mx-auto max-w-screen-lg">
-                            <div className="font-normal capitalize mb-2.5">SOLANA</div>
+const Footer: React.FC = () => {
+  return (
+    <footer className="bg-base-300 text-base-content">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Logo and Description */}
+          <div className="col-span-1 md:col-span-2">
+            <h3 className="text-2xl font-bold text-primary mb-4">OxyFi</h3>
+            <p className="text-base-content/70 mb-4 max-w-md">
+              Transparent carbon offsetting with satellite verification and blockchain technology. 
+              Making environmental impact measurable and trustworthy.
+            </p>
+            <div className="flex space-x-4">
+              <a href="#" className="btn btn-ghost btn-sm btn-circle">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                </svg>
+              </a>
+              <a href="#" className="btn btn-ghost btn-sm btn-circle">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+              </a>
+              <a href="#" className="btn btn-ghost btn-sm btn-circle">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419-.0002 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1568 2.4189Z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
 
-                            <div className="flex flex-col mb-0 gap-2">
-                                <Link href="https://solana.com" target="_blank" rel="noopener noreferrer" passHref className="text-secondary hover:text-white">
-                                    Labs
-                                </Link>
-                                <Link href="https://solana.org" target="_blank" rel="noopener noreferrer" passHref className="text-secondary hover:text-white">
-                                    Foundation
-                                </Link>
-                                <Link href="https://solanamobile.com/" target="_blank" rel="noopener noreferrer" passHref className="text-secondary hover:text-white">
-                                    Solana Mobile
-                                </Link>
-                                <Link href="https://solanapay.com/" target="_blank" rel="noopener noreferrer" passHref className="text-secondary hover:text-white">
-                                    Solana Pay
-                                </Link>
-                                <Link href="https://solana.org/grants" target="_blank" rel="noopener noreferrer" passHref className="text-secondary hover:text-white">
-                                    Grants
-                                </Link>
-                            </div>
-                        </div>
+          {/* Quick Links */}
+          <div>
+            <h4 className="font-semibold text-base-content mb-4">Platform</h4>
+            <ul className="space-y-2">
+              <li><a href="/projects" className="text-base-content/70 hover:text-primary">Projects</a></li>
+              <li><a href="/timelapse-demo" className="text-base-content/70 hover:text-primary">Timelapse Demo</a></li>
+              <li><a href="/greenchain-demo" className="text-base-content/70 hover:text-primary">GreenChain Demo</a></li>
+              <li><a href="/basics" className="text-base-content/70 hover:text-primary">Getting Started</a></li>
+            </ul>
+          </div>
 
-                        <div className="mb-6 items-center mx-auto max-w-screen-lg">
-                            <h5 className="font-normal capitalize tracking-tight  mb-2.5">DEVELOPERS</h5>
-
-                            <div className="flex flex-col mb-0 gap-2">
-                                <Link href="https://docs.solana.com/developers" target="_blank" rel="noopener noreferrer" passHref className="text-secondary hover:text-white">
-                                    Documentation
-                                </Link>
-                                <Link href="https://github.com/solana-mobile/solana-mobile-stack-sdk" target="_blank" rel="noopener noreferrer" passHref className="text-secondary hover:text-white">
-                                    Mobile SDK
-                                </Link>
-                                <Link href="https://github.com/solana-labs/solana-pay" target="_blank" rel="noopener noreferrer" passHref className="text-secondary hover:text-white">
-                                    Pay SDK
-                                </Link>
-                                <Link href="https://solanacookbook.com/" target="_blank" rel="noopener noreferrer" passHref className="text-secondary hover:text-white">
-                                    Cookbook
-                                </Link>
-                                <Link href="https://solana.com/developers/dao" target="_blank" rel="noopener noreferrer" passHref className="text-secondary hover:text-white">
-                                    DAOs
-                                </Link>
-                            </div>
-                        </div>
-
-                        <div className="mb-6 items-center mx-auto max-w-screen-lg">
-                            <h5 className="font-normal tracking-tight  mb-2.5">ECOSYSTEM</h5>
-
-                            <div className="flex flex-col mb-0 gap-2">
-                                <Link href="https://solana.com/news" target="_blank" rel="noopener noreferrer" passHref className="text-secondary hover:text-white">
-                                    News
-                                </Link>
-                                <Link href="https://solana.org/validators" target="_blank" rel="noopener noreferrer" passHref className="text-secondary hover:text-white">
-                                    Validators
-                                </Link>
-                                <Link href="https://www.youtube.com/@SolanaFndn" target="_blank" rel="noopener noreferrer" passHref className="text-secondary hover:text-white">
-                                    Youtube
-                                </Link>
-                                <Link href="https://app.realms.today/discover" target="_blank" rel="noopener noreferrer" passHref className="text-secondary hover:text-white">
-                                    Realms
-                                </Link>
-                                <Link href="https://www.solanau.org" target="_blank" rel="noopener noreferrer" passHref className="text-secondary hover:text-white">
-                                    Solana U
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+          {/* Resources */}
+          <div>
+            <h4 className="font-semibold text-base-content mb-4">Resources</h4>
+            <ul className="space-y-2">
+              <li><a href="#" className="text-base-content/70 hover:text-primary">Documentation</a></li>
+              <li><a href="#" className="text-base-content/70 hover:text-primary">API Reference</a></li>
+              <li><a href="#" className="text-base-content/70 hover:text-primary">Support</a></li>
+              <li><a href="#" className="text-base-content/70 hover:text-primary">Blog</a></li>
+            </ul>
+          </div>
         </div>
-    );
+
+        <div className="border-t border-base-content/20 mt-8 pt-8 text-center">
+          <p className="text-base-content/60">
+            © 2024 OxyFi. All rights reserved. Built on Solana with ❤️ for the planet.
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
 };
+
+export default Footer;
