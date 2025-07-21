@@ -147,6 +147,11 @@ export const AppBar: React.FC = () => {
             navigationStarts={() => setIsNavOpen(false)}
             className="block w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors duration-200"
           />
+          <NavElement
+            label="My Impact"
+            href="/my-impact"
+            navigationStarts={() => setIsNavOpen(false)}
+          />
           <WalletMultiButtonDynamic className="btn-ghost btn-sm rounded-btn text-lg mr-6 " />
         </div>
         
