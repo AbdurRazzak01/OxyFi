@@ -42,7 +42,7 @@
     "@types/leaflet": "^1.9.12",
     "@types/recharts": "^1.8.29",
     "clsx": "^2.1.1",
-    "daisyui": "^1.24.3",
+    "daisyui": "^5.0.46",
     "date-fns": "^2.29.3",
     "framer-motion": "^10.16.16",
     "immer": "^9.0.12",
